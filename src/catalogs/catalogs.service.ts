@@ -92,5 +92,19 @@ export class CatalogsService {
       throw e;
     }
   }
+
+  async deleteCatalog(id: string): Promise<void> {
+    const result = await this.catalogModel.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      throw new Error(`Catalog with ID '${id}' not found.`);
+    }
+  }
+  
+  async deleteMultipleCatalogs(ids: string[]): Promise<void> {
+    const result = await this.catalogModel.deleteMany({ _id: { $in: ids } });
+    if (result.deletedCount === 0) {
+      throw new Error('No catalogs found to delete.');
+    }
+  }
   
 }
