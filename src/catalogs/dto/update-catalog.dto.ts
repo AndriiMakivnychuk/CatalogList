@@ -10,6 +10,9 @@ export class UpdateCatalogDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(100)
+  @Matches(/^[a-zA-Z]+$/, {
+    message: 'The catalog name should only contain alphabetic characters',
+  })
   name?: string;
 
 
